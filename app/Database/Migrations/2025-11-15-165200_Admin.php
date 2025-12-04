@@ -29,13 +29,16 @@ class Admin extends \CodeIgniter\Database\Migration
             ],
             'password' => [
                 'type' => 'varchar',
-                'constraint' => '100',
+                'constraint' => '255',
             ],
             'user_type' => [
                 'type' => 'ENUM("admin", "user")',
                 'default' => 'user',
                 'null' => false,
             ],
+            // Add timestamps so model can save created_at/updated_at
+            'created_at' => ['type' => 'datetime', 'null' => true],
+            'updated_at' => ['type' => 'datetime', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('admin');
