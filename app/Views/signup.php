@@ -1,173 +1,150 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sign Up — Demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .card-width {
-            max-width: 520px;
-            width: 100%
-        }
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
 
-        .brand {
-            font-weight: 700;
-            letter-spacing: .4px
-        }
-    </style>
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/responsive.css') ?>">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
 
-<body class="bg-light">
-    <div class="container d-flex justify-content-center align-items-center vh-100">
-        <div class="card card-width border border-2 border-success rounded shadow-sm">
-            <div class="card-body p-4">
-                <h4 class="card-title mb-1 brand text-success">Create your account</h4>
-                <p class="text-muted mb-4">Sign up — it's quick and easy.</p>
+<body>
 
-                <!-- Use site_url() so URL generation is correct -->
-                <form id="signupForm" action="<?= site_url('signup') ?>" method="post" novalidate>
-                    <?= csrf_field() ?>
+    <section class="Signup_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="Signup_textsc">
+                    
+                        <!-- LEFT IMAGE -->
+                        <div class="Signup_lefttxtbox">
+                            <img src="<?= base_url('images/15.jpg') ?>" alt="Signup" class="Signup_img">
+                        </div>
 
-                    <?php if (isset($save_error)): ?>
-                        <div class="alert alert-danger">
-                            <strong>Save failed.</strong>
-                            <?php if (! empty($save_error['model_errors'])): ?>
-                                <div>Model errors:
-                                    <ul>
-                                        <?php foreach ($save_error['model_errors'] as $err): ?>
-                                            <li><?= esc($err) ?></li>
-                                        <?php endforeach; ?>
-                                    </ul>
+                        <!-- RIGHT FORM -->
+                        <div class="Signup_righttxtbox">
+
+                            <h3>Sign Up</h3>
+
+                            <!-- SERVER ERROR -->
+                            <?php if (isset($save_error)): ?>
+                                <div class="alert alert-danger">
+                                    <strong>Save failed.</strong>
+                                    <?php if (!empty($save_error['model_errors'])): ?>
+                                        <ul class="mb-0">
+                                            <?php foreach ($save_error['model_errors'] as $err): ?>
+                                                <li><?= esc($err) ?></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    <?php endif; ?>
                                 </div>
                             <?php endif; ?>
-                            <?php if (! empty($save_error['db_error']['message'])): ?>
-                                <div>DB error: <?= esc($save_error['db_error']['message']) ?></div>
-                            <?php endif; ?>
+
+                            <!-- FORM -->
+                            <form method="post" action="<?= site_url('signup') ?>" class="Signup_formsc">
+                                <?= csrf_field() ?>
+
+                                <!-- FIRST NAME -->
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" name="firstname" value="<?= set_value('firstname') ?>"
+                                        placeholder="Enter First Name"
+                                        class="Signup_input <?= isset($validation) && $validation->hasError('firstname') ? 'is-invalid' : '' ?>">
+                                    <?php if (isset($validation) && $validation->hasError('firstname')): ?>
+                                        <div class="invalid-feedback d-block">
+                                            <?= $validation->getError('firstname') ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" name="lastname" value="<?= set_value('lastname') ?>"
+                                        placeholder="Enter Last Name"
+                                        class="Signup_input <?= isset($validation) && $validation->hasError('lastname') ? 'is-invalid' : '' ?>">
+                                    <?php if (isset($validation) && $validation->hasError('lastname')): ?>
+                                        <div class="invalid-feedback d-block">
+                                            <?= $validation->getError('lastname') ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                <!-- EMAIL -->
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" name="email" value="<?= set_value('email') ?>"
+                                        placeholder="Enter Email"
+                                        class="Signup_input <?= isset($validation) && $validation->hasError('email') ? 'is-invalid' : '' ?>">
+                                    <?php if (isset($validation) && $validation->hasError('email')): ?>
+                                        <div class="invalid-feedback d-block">
+                                            <?= $validation->getError('email') ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+
+                                <!-- PHONE -->
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="text" name="phone" value="<?= set_value('phone') ?>"
+                                        placeholder="Enter Phone Number"
+                                        class="Signup_input <?= isset($validation) && $validation->hasError('phone') ? 'is-invalid' : '' ?>">
+                                    <?php if (isset($validation) && $validation->hasError('phone')): ?>
+                                        <div class="invalid-feedback d-block">
+                                            <?= $validation->getError('phone') ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                
+                                <!-- PASSWORD -->
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" name="password" placeholder="Enter Password"
+                                        class="Signup_input <?= isset($validation) && $validation->hasError('password') ? 'is-invalid' : '' ?>">
+                                    <?php if (isset($validation) && $validation->hasError('password')): ?>
+                                        <div class="invalid-feedback d-block">
+                                            <?= $validation->getError('password') ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm password</label>
+                                    <input type="password" name="confirmPassword" placeholder="Enter Confirm Password"
+                                        class="Signup_input <?= isset($validation) && $validation->hasError('confirmPassword') ? 'is-invalid' : '' ?>">
+                                    <?php if (isset($validation) && $validation->hasError('confirmPassword')): ?>
+                                        <div class="invalid-feedback d-block">
+                                            <?= $validation->getError('confirmPassword') ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+
+                                <!-- SUBMIT -->
+                                <button type="submit" class="Signup_formbtn mb-3">
+                                    Sign Up
+                                </button>
+
+                            </form>
+
                         </div>
-                    <?php endif; ?>
-
-                    <div class="row g-2">
-                        <div class="col-md-6 mb-3">
-                            <label for="firstName" class="form-label">First name</label>
-                            <?php $firstVal = (function_exists('set_value') ? set_value('firstname') : (isset($_REQUEST['firstname']) ? esc($_REQUEST['firstname']) : '')); ?>
-                            <input type="text"
-                                class="form-control <?= isset($validation) && $validation->hasError('firstname') ? 'is-invalid' : '' ?>"
-                                id="firstName" name="firstname" value="<?= esc($firstVal) ?>" required>
-                            <?php if (isset($validation)): ?>
-                                <div class="invalid-feedback"><?= $validation->getError('firstname') ?></div>
-                            <?php else: ?>
-                                <div class="invalid-feedback">Required.</div>
-                            <?php endif; ?>
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <label for="lastName" class="form-label">Last name</label>
-                            <?php $lastVal = (function_exists('set_value') ? set_value('lastname') : (isset($_REQUEST['lastname']) ? esc($_REQUEST['lastname']) : '')); ?>
-                            <input type="text"
-                                class="form-control <?= isset($validation) && $validation->hasError('lastname') ? 'is-invalid' : '' ?>"
-                                id="lastName" name="lastname" value="<?= esc($lastVal) ?>" required>
-                            <?php if (isset($validation)): ?>
-                                <div class="invalid-feedback"><?= $validation->getError('lastname') ?></div>
-                            <?php else: ?>
-                                <div class="invalid-feedback">Required.</div>
-                            <?php endif; ?>
-                        </div>
                     </div>
-
-                    <div class="mb-3">
-                        <label for="signupEmail" class="form-label">Email</label>
-                        <?php $emailVal = (function_exists('set_value') ? set_value('email') : (isset($_REQUEST['email']) ? esc($_REQUEST['email']) : '')); ?>
-                        <input type="email"
-                            class="form-control <?= isset($validation) && $validation->hasError('email') ? 'is-invalid' : '' ?>"
-                            id="signupEmail" name="email" value="<?= esc($emailVal) ?>" required>
-                        <?php if (isset($validation)): ?>
-                            <div class="invalid-feedback"><?= $validation->getError('email') ?></div>
-                        <?php else: ?>
-                            <div class="invalid-feedback">Please provide a valid email.</div>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="signupPassword" class="form-label">Password</label>
-                        <?php $pwdVal = function_exists('set_value') ? set_value('password') : ''; ?>
-                        <input type="password" name="password"
-                            class="form-control <?= isset($validation) && $validation->hasError('password') ? 'is-invalid' : '' ?>"
-                            id="signupPassword" value="<?= esc($pwdVal) ?>" minlength="8" required>
-                        <div class="form-text small">At least 8 characters.</div>
-                        <?php if (isset($validation)): ?>
-                            <div class="invalid-feedback"><?= $validation->getError('password') ?></div>
-                        <?php else: ?>
-                            <div class="invalid-feedback">Password must be at least 6 characters.</div>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="confirmPassword" class="form-label">Confirm password</label>
-                        <?php $confirmVal = function_exists('set_value') ? set_value('confirmPassword') : ''; ?>
-                        <input type="password" name="confirmPassword"
-                            class="form-control <?= isset($validation) && $validation->hasError('confirmPassword') ? 'is-invalid' : '' ?>"
-                            id="confirmPassword" value="<?= esc($confirmVal) ?>" minlength="8" required>
-                        <?php if (isset($validation)): ?>
-                            <div class="invalid-feedback"><?= $validation->getError('confirmPassword') ?></div>
-                        <?php else: ?>
-                            <div class="invalid-feedback">Passwords must match.</div>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" id="agree" required>
-                        <label class="form-check-label" for="agree">I agree to the Terms &amp; Privacy</label>
-                        <div class="invalid-feedback">You must accept before submitting.</div>
-                    </div>
-
-                    <button type="submit" class="btn btn-success w-100">Create account</button>
-                </form>
-
-                <hr class="my-3">
-                <p class="text-center small mb-0">
-                    Already have an account?
-                    <a href="<?= site_url('login') ?>">Login here</a>
-                </p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Temporary debug: log when forms are submitted so we can confirm the browser sends the POST
-        (function(){
-            var signup = document.getElementById('signupForm');
-            if (signup) signup.addEventListener('submit', function(e){
-                e.preventDefault();
-                console.log('signupForm submit intercepted - sending fetch');
-                var form = e.currentTarget;
-                var url = form.action || window.location.href;
-                var data = new FormData(form);
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
-                fetch(url, { method: 'POST', body: data, credentials: 'same-origin' })
-                .then(function(res){
-                    console.log('fetch response', res.status, res.url, 'redirected=', res.redirected);
-                    if (res.redirected) {
-                        window.location = res.url;
-                        return;
-                    }
-                    return res.text();
-                }).then(function(text){
-                    if (text) console.log('response body (truncated):', text.substring(0,200));
-                }).catch(function(err){
-                    console.error('fetch error:', err);
-                    try { form.submit(); } catch(e){}
-                });
-            });
-
-            var login = document.getElementById('loginForm');
-            if (login) login.addEventListener('submit', function(e){
-                try { console.log('loginForm submit triggered'); } catch(err){}
-            });
-        })();
-    </script>
 </body>
 
 </html>

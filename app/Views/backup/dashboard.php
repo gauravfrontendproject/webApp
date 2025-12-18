@@ -114,6 +114,10 @@
                 <small class="text-muted">Welcome back, <?= esc(session()->get('user_name') ?? 'User') ?></small>
             </div>
 
+            <div class="googlesheet mb-2">
+                <a class="btn btn-warning" href="<?php echo base_url() ?>/exportuserdata">Export to googlesheet</a>
+            </div>
+
             <!-- Summary cards -->
             <!-- <div class="d-flex gap-3 flex-wrap mb-4">
                 <div class="card card-summary border-0 shadow-sm p-3">
@@ -183,8 +187,14 @@
                                         <td><?php echo $val['name'] ?></td>
                                         <td><?php echo $val['phone'] ?></td>
                                         <td><?php echo $val['email'] ?></td>
-                                        <td><a href="/editUser/<?php echo $val['id'] ?>" class="btn btn-sm btn-primary">Edit</a> | <a href="#"
-                                                class="btn btn-sm btn-danger">Delete</a></td>
+                                        <td><a href="/editUser/<?php echo $val['id'] ?>"
+                                                class="btn btn-sm btn-primary">Edit</a> | <a
+                                                onclick=" return confirm('Are You Sure to delete this record.')"
+                                                href="/deleteUser/<?php echo $val['id'] ?>"
+                                                class="btn btn-sm btn-danger">Delete</a>
+                                            | <a href="/upload/<?php echo $val['id'] ?>"
+                                                class="btn btn-sm btn-danger">Upload Image</a>
+                                        </td>
                                     </tr>
                                 <?php } ?>
                             </tbody>

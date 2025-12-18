@@ -13,7 +13,8 @@ class Noauth implements FilterInterface
         // use the exact key you set in session (here: isLoggedIn)
         if (session()->get('isLoggedIn')) {
             // return the redirect response to stop further execution
-            return redirect()->to('/dashboard');
+            // send logged-in users to base URL (home) so they see the home page after login
+            return redirect()->to('/');
         }
 
         // return null to continue request
