@@ -20,3 +20,7 @@ $routes->get('deleteUser/(:any)', 'Home::deleteUser/$1', ['filter' => 'auth']);
 
 // Sigin Routes
 $routes->match(['GET', 'POST'], 'signin', 'Home::signin');
+
+// Admin Routes
+$routes->match(['GET', 'POST'], '/admin', 'Admin::index', ['filter' => 'noauth']);
+$routes->match(['GET', 'POST'], '/admin/dashboard', 'Admin::dashboard', ['filter' => 'noauth']);

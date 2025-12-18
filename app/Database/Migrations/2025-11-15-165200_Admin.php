@@ -37,11 +37,17 @@ class Admin extends \CodeIgniter\Database\Migration
                 'null' => false,
             ],
             // Add timestamps so model can save created_at/updated_at
-            'created_at' => ['type' => 'datetime', 'null' => true],
-            'updated_at' => ['type' => 'datetime', 'null' => true],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('admin');
+        $this->forge->createTable('admin', true);
     }
 
     public function down()
